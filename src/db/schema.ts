@@ -1,7 +1,9 @@
-import { pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core'
+import { boolean, integer, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core'
 
-export const todos = pgTable('todos', {
+export const assets = pgTable('assets', {
   id: serial().primaryKey(),
-  title: text().notNull(),
-  createdAt: timestamp('created_at').defaultNow(),
+  name: text().notNull(),
+  age: integer().default(0),
+  inUse: boolean().notNull(),
+  inUseSince: timestamp ({withTimezone: true}).defaultNow(),
 })
