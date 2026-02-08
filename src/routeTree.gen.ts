@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MaintenanceIndexRouteImport } from './routes/maintenance/index'
+import { Route as AssetsIndexRouteImport } from './routes/assets/index'
+import { Route as AssetsNewIndexRouteImport } from './routes/assets/new/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MaintenanceIndexRoute = MaintenanceIndexRouteImport.update({
+  id: '/maintenance/',
+  path: '/maintenance/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssetsIndexRoute = AssetsIndexRouteImport.update({
+  id: '/assets/',
+  path: '/assets/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssetsNewIndexRoute = AssetsNewIndexRouteImport.update({
+  id: '/assets/new/',
+  path: '/assets/new/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/assets/': typeof AssetsIndexRoute
+  '/maintenance/': typeof MaintenanceIndexRoute
+  '/assets/new/': typeof AssetsNewIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/assets': typeof AssetsIndexRoute
+  '/maintenance': typeof MaintenanceIndexRoute
+  '/assets/new': typeof AssetsNewIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/assets/': typeof AssetsIndexRoute
+  '/maintenance/': typeof MaintenanceIndexRoute
+  '/assets/new/': typeof AssetsNewIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/assets/' | '/maintenance/' | '/assets/new/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/assets' | '/maintenance' | '/assets/new'
+  id: '__root__' | '/' | '/assets/' | '/maintenance/' | '/assets/new/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AssetsIndexRoute: typeof AssetsIndexRoute
+  MaintenanceIndexRoute: typeof MaintenanceIndexRoute
+  AssetsNewIndexRoute: typeof AssetsNewIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/maintenance/': {
+      id: '/maintenance/'
+      path: '/maintenance'
+      fullPath: '/maintenance/'
+      preLoaderRoute: typeof MaintenanceIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assets/': {
+      id: '/assets/'
+      path: '/assets'
+      fullPath: '/assets/'
+      preLoaderRoute: typeof AssetsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assets/new/': {
+      id: '/assets/new/'
+      path: '/assets/new'
+      fullPath: '/assets/new/'
+      preLoaderRoute: typeof AssetsNewIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AssetsIndexRoute: AssetsIndexRoute,
+  MaintenanceIndexRoute: MaintenanceIndexRoute,
+  AssetsNewIndexRoute: AssetsNewIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
