@@ -138,7 +138,7 @@ code {
 }
 
 @utility container {
-  @apply max-w-4xl;
+  @apply max-w-md;
   margin-inline: auto;
   padding: 1rem;
 }

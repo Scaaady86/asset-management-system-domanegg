@@ -5,12 +5,22 @@ export const Route = createFileRoute('/')({ component: App })
 
 function App() {
   return (
-    <div className="min-h-screen container space-y-8">
-      <div className="flex flex-wrap items-center gap-2 md:flex-row">
-        <Button size="sm" asChild>
+    <div className="container min-h-screen flex items-center justify-center">
+      <div className="flex gap-20">
+        <Button
+          variant="secondary"
+          className="flex-1 w-80 h-48 text-4xl"
+          size="sm"
+          asChild
+        >
           <Link to="/maintenance">Maintenance Tasks</Link>
         </Button>
-        <Button size="sm" asChild>
+        <Button
+          variant="secondary"
+          className="flex-1 w-80 h-48 text-4xl"
+          size="sm"
+          asChild
+        >
           <Link to="/assets">Assets</Link>
         </Button>
       </div>
